@@ -4,5 +4,5 @@ Rails.application.routes.draw do
   get 'about', to: 'pages#about'
   get 'signup', to: 'user#new'
    resources :articles
-   resources :users, except: [:new]
+  
 end
