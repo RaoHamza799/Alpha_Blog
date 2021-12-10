@@ -11,23 +11,61 @@
           
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+           <%= link_to "Bloggers", users_path, class: "nav-link" %>
       </li>
       <li class="nav-item dropdown">
+
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Articles
         </a>
+
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+         <% if logged_in? %>
            <a><%= link_to "Creat New Article", new_article_path, class: "dropdown-item" %></a>
+         <%end%>
+           
           <a><%= link_to "View Articles", articles_path, class: "dropdown-item" %></a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#">Something else here</a>
           </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-      </li>
-    </ul>
+ 
+        <% if logged_in? %>
+        <%# created a drop down menue by the name of user  %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Profile [<%= current_user.username %>]
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <%= link_to "View your profile", user_path(current_user), class: "dropdown-item" %>
+            <%# here we passsed the curent_user butt we can pass id of a user here  %>
+            <%= link_to "Edit your profile", edit_user_path(current_user), class: "dropdown-item" %>
+          </div>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Logout', logout_path, class: "nav-link", method: :delete %>
+        </li>
+      <% else %>
+        <li class="nav-item">
+          <%= link_to 'Log in', login_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Sign up', signup_path, class: "nav-link" %>
+        </li>
+      <% end %>
+      </ul>
+
+
+
+
+
+
+
+
+
+
+
+
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
