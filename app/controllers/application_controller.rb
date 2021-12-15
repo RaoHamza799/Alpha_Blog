@@ -9,6 +9,12 @@ def  logged_in?  #it will return true or false using !! operator called bang ban
 end
 
 
+def require_user
+    if !logged_in?
+      flash[:alert] = "You must be logged in to perform that action"
+      redirect_to login_path
+    end
+end
 
 
 end

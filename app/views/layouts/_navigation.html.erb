@@ -25,21 +25,37 @@
          <%end%>
            
           <a><%= link_to "View Articles", articles_path, class: "dropdown-item" %></a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-          </div>
+          
       </li>
- 
+
+
+     <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Categories
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <% if logged_in? && current_user.admin? %>
+            <%= link_to "Create new category", new_category_path, class: "dropdown-item" %>
+          <% end %>  
+          <%= link_to "View categories", categories_path, class: "dropdown-item" %>
+        </div>
+      </li>
+
+
+
+
+
         <% if logged_in? %>
         <%# created a drop down menue by the name of user  %>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Profile [<%= current_user.username %>]
+           <%="(Admin)" if current_user.admin?%> Profile [<%= current_user.username %>]
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <%= link_to "View your profile", user_path(current_user), class: "dropdown-item" %>
             <%# here we passsed the curent_user butt we can pass id of a user here  %>
             <%= link_to "Edit your profile", edit_user_path(current_user), class: "dropdown-item" %>
+            <%= link_to "Delete profile", user_path(current_user), class: "dropdown-item text-danger", method: :delete, data: { confirm: "Are you sure?" } %> 
           </div>
         </li>
         <li class="nav-item">
@@ -66,9 +82,21 @@
 
 
 
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+    
+
+    <%= form_with(model: @article, class:"form-inline my-2 my-lg-0" , local: true) do |f| %>
+       
+	    <%= f.text_field :search, class: "form-control shadow rounded", placeholder: "Enetr any thing you want to search" %>
+	     
+        <div class="form-group row justify-content-center">
+	    <%= f.submit class:"btn btn-outline-success my-2 my-sm-0"%>
+		</div>
+	<% end %>
+
+
+
+
+
+    
   </div>
 </nav>
