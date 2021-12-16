@@ -1,0 +1,8 @@
+<div id="page-content">
+<%if @articles.empty? && @users.empty?%>
+   <%= render 'index' %>
+<%else%>
+<%= render 'articles' %>
+<%= render 'users/users' %>
+<%end%>
+</div>

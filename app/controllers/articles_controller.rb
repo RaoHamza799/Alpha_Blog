@@ -8,6 +8,17 @@ class ArticlesController < ApplicationController
         if @article.save
         end
     end
+    def search
+           
+       if params[:search].blank?
+        redirect_to root_path
+       else 
+        @value=params[:search].downcase
+        @articles= Article.all.where("lower(title)  LIKE :search", search: "%#{@value}%" )
+        @users= User.all.where("lower(username)  LIKE :search", search: "%#{@value}%" )
+       end
+  
+    end
     def destroy
      
       @article.destroy
